@@ -1,0 +1,26 @@
+groups:
+- name: frigo
+  rules:
+  - alert: too_hot
+    expr: temperature_t1 >= 4
+    for: 1m
+    labels:
+      severity: hot
+
+  - alert: way_too_hot
+    expr: temperature_t1 >= 8
+    for: 1m
+    labels:
+      severity: slack
+
+  - alert: too_cold
+    expr: temperature_t1 <= 2
+    for: 1m
+    labels:
+     severity: cold
+  
+  - alert: way_too_cold
+    expr: temperature_t1 <= 0
+    for: 1m
+    labels:
+      severity: slack

@@ -1,0 +1,40 @@
+global:
+
+route:
+  group_wait: 2s
+  group_interval: 5m
+  repeat_interval: 30s
+  receiver: devnull
+
+  routes:
+  - match:
+      severity: cold
+    receiver: cold-api
+
+  - match:
+      severity: hot
+    receiver: hot-api
+
+  - match:
+      severity: slack
+    receiver: slack
+
+receivers:
+- name: cold-api
+  webhook_configs:
+  - url: http://YOUR_PI_IP:5000/relay
+    send_resolved: false
+
+- name: hot-api
+  webhook_configs:
+  - url: http://YOUR_PI_IP:5000/relay
+    send_resolved: false
+
+- name: slack
+  slack_configs:
+  - api_url: 
+    channel: 
+
+- name: devnull
+
+
